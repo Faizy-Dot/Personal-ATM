@@ -317,7 +317,10 @@ async function fetchData() {
 
 async function deleteState(data) {
     await deleteDoc(doc(db, "states", data));
-    fetchData()
+    setTimeout(()=>{
+
+        fetchData()
+    },3000)
 }
 window.deleteState = deleteState
 
