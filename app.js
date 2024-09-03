@@ -5,7 +5,7 @@ import {
     addDoc,
     getDocs,
     deleteDoc,
-    doc,setDoc
+    doc, setDoc
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
@@ -236,7 +236,7 @@ if (submitBtn) {
             let time = new Date().toLocaleTimeString();
             let seconds = new Date().getTime()
 
-           
+
             const docRef = await addDoc(collection(db, "states"), {
                 amountState: amount.value,
                 descriptionState: description.value,
@@ -245,7 +245,7 @@ if (submitBtn) {
                 dayState: day,
                 timeState: time,
                 userId: idArr,
-                secondState : seconds
+                secondState: seconds
 
             });
             fetchData()
@@ -274,9 +274,9 @@ async function fetchData() {
             <td>${doc.data().descriptionState}</td>
             <td class="type-show-color">${doc.data().typeState}</td>
             <td>${doc.data().dateState} <br/> ${doc.data().timeState} <br/>${doc.data().dayState}</td>
-            <td><button class = "delete-btn" onclick = "deleteState('${doc.id}')">Delete</button></td>`
+            <td><button class = "delete-btn" onclick = "deleteState('${doc.id}')"><img src="images/loader.webp" alt="" id="deletebtn-spinner" >Delete</button></td>`
             index++
-            
+
             if (doc.data().typeState == "Income") {
                 incomeArr.push(parseInt(doc.data().amountState))
             }
@@ -285,13 +285,16 @@ async function fetchData() {
             }
         }
     });
+
+  
+
     for (var i = 0; i < incomeArr.length; i++) {
         incomeSum += incomeArr[i]
     }
-    income.innerHTML = incomeSum
     for (var i = 0; i < expenseArr.length; i++) {
         expenseSum += expenseArr[i]
     }
+    income.innerHTML = incomeSum
     expense.innerHTML = expenseSum
 
     balance.innerHTML = incomeSum - expenseSum
@@ -316,16 +319,18 @@ async function fetchData() {
 
 
 async function deleteState(data) {
+    incomeArr = []
+    expenseArr = []
     await deleteDoc(doc(db, "states", data));
-    setTimeout(()=>{
+ fetchData()
 
-        fetchData()
-    },3000)
 }
 window.deleteState = deleteState
 
 if (clearAllbtn) {
     clearAllbtn.addEventListener("click", async () => {
+        incomeArr = []
+        expenseArr = []
         clearSpinner.style.display = "block"
         const q = (collection(db, "states"))
 
