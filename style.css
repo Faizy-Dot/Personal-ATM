@@ -100,6 +100,7 @@ body {
     text-align: center;
     align-items: center;
     display: flex;
+    color: white;
     flex-direction: column;
     justify-content: center;
     background: transparent;
