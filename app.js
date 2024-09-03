@@ -274,7 +274,7 @@ async function fetchData() {
             <td>${doc.data().descriptionState}</td>
             <td class="type-show-color">${doc.data().typeState}</td>
             <td>${doc.data().dateState} <br/> ${doc.data().timeState} <br/>${doc.data().dayState}</td>
-            <td><button class = "delete-btn" onclick = "deleteState('${doc.id}')"><img src="images/loader.webp" alt="" id="deletebtn-spinner" >Delete</button></td>`
+            <td><button class = "delete-btn" onclick = "deleteState('${doc.id}')">Delete</button></td>`
             index++
 
             if (doc.data().typeState == "Income") {
